@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcCoreDemoAppGit", "MvcCoreDemoAppGit.csproj", "{CAAB9CE8-1174-4E6C-A72A-BDE42697AD7C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CAAB9CE8-1174-4E6C-A72A-BDE42697AD7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAAB9CE8-1174-4E6C-A72A-BDE42697AD7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAAB9CE8-1174-4E6C-A72A-BDE42697AD7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAAB9CE8-1174-4E6C-A72A-BDE42697AD7C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DC797DC0-1A11-431E-B458-6C8B8209B5DF}
+	EndGlobalSection
+EndGlobal
