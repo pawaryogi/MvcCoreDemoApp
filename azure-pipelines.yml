@@ -64,20 +64,7 @@ stages:
             fileType: 'json'
             targetFiles: '**/appsettings.json'
         
-        - task: replacetokens@5
-          inputs:
-            rootDirectory: '$(Pipeline.Workspace)/**/*.zip'
-            targetFiles: '**/appsettings.json'
-            encoding: 'auto'
-            tokenPattern: 'default'
-            writeBOM: true
-            actionOnMissing: 'warn'
-            keepToken: false
-            actionOnNoFiles: 'continue'
-            enableTransforms: false
-            enableRecursion: false
-            useLegacyPattern: false
-            enableTelemetry: true
+        
 
         
           
