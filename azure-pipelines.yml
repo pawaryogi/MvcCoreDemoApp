@@ -14,7 +14,9 @@ stages:
       vmImage: windows-latest
 
     variables:
-      buildConfiguration: 'Release'
+      - name: buildConfiguration
+        value: 'Release'
+      - group: AppSettingsVar
 
     steps:
     - task: DotNetCoreCLI@2
@@ -22,7 +24,8 @@ stages:
         command: 'restore'
         projects: '**/*.csproj'
         feedsToUse: 'select'
-
+    
+    
     - task: DotNetCoreCLI@2
       inputs:
         command: 'build'
@@ -51,6 +54,27 @@ stages:
       variables:
         WelcomeMsg: "Welcome To YAML CICD Pipeline- From Variables."
       steps:  
+        - task: FileTransform@1
+          inputs:
+            folderPath: '$(Pipeline.Workspace)/**/*.zip'
+            fileType: 'json'
+            targetFiles: '**/appsettings.json'
+        
+        - task: replacetokens@5
+          inputs:
+            rootDirectory: '$(Pipeline.Workspace)/**/*.zip'
+            targetFiles: '**/appsettings.json'
+            encoding: 'auto'
+            tokenPattern: 'default'
+            writeBOM: true
+            actionOnMissing: 'warn'
+            keepToken: false
+            actionOnNoFiles: 'continue'
+            enableTransforms: false
+            enableRecursion: false
+            useLegacyPattern: false
+            enableTelemetry: true
+
         - task: DownloadPipelineArtifact@2
           inputs:
             buildType: 'current'
