@@ -67,7 +67,6 @@ stages:
         
         - task: replacetokens@5
           inputs:
-            rootDirectory: '$(Pipeline.Workspace)/**/*.zip'
             targetFiles: '**/appsettings.json'
             encoding: 'auto'
             tokenPattern: 'default'
