@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using MvcCoreDemoAppGit.Models;
 using System.Diagnostics;
 
@@ -7,14 +8,17 @@ namespace MvcCoreDemoAppGit.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IConfiguration _iconfigurtion;
+        public HomeController(ILogger<HomeController> logger,IConfiguration iconfigurtion)
         {
             _logger = logger;
+            _iconfigurtion = iconfigurtion;
         }
 
         public IActionResult Index()
         {
+            ViewBag.Test = _iconfigurtion.GetValue<string>("Test");
+            ViewBag.OracleString = _iconfigurtion.GetValue<string>("ConnectionStrings:OracleConstr");
             return View();
         }
 
