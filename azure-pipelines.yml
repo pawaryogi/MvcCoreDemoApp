@@ -59,22 +59,11 @@ stages:
             artifactName: 'drop'
             targetPath: '$(Pipeline.Workspace)'
         
-        
-        - task: replacetokens@5
+        - task: FileTransform@1
           inputs:
-            rootDirectory: '$(Pipeline.Workspace)/**/*.zip'
+            folderPath: '$(Pipeline.Workspace)/**/*.zip'
+            fileType: 'json'
             targetFiles: '**/appsettings.json'
-            encoding: 'auto'
-            tokenPattern: 'default'
-            writeBOM: true
-            actionOnMissing: 'warn'
-            keepToken: false
-            actionOnNoFiles: 'continue'
-            enableTransforms: false
-            enableRecursion: false
-            useLegacyPattern: false
-            enableTelemetry: true
-
         
           
         - task: AzureRmWebAppDeployment@4
