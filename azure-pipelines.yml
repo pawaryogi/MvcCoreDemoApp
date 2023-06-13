@@ -16,7 +16,6 @@ stages:
     variables:
       - name: buildConfiguration
         value: 'Release'
-      - group: AppSettingsVar
 
     steps:
     - task: DotNetCoreCLI@2
@@ -52,8 +51,13 @@ stages:
         vmImage: windows-latest
       
       variables:
-        WelcomeMsg: "Welcome To YAML CICD Pipeline- From Variables."
+        - group: AppSettingsVar
       steps:  
+        - task: DownloadPipelineArtifact@2
+          inputs:
+            buildType: 'current'
+            artifactName: 'drop'
+            targetPath: '$(Pipeline.Workspace)'
         - task: FileTransform@1
           inputs:
             folderPath: '$(Pipeline.Workspace)/**/*.zip'
@@ -75,11 +79,7 @@ stages:
             useLegacyPattern: false
             enableTelemetry: true
 
-        - task: DownloadPipelineArtifact@2
-          inputs:
-            buildType: 'current'
-            artifactName: 'drop'
-            targetPath: '$(Pipeline.Workspace)'
+        
           
         - task: AzureRmWebAppDeployment@4
           inputs:
