@@ -58,13 +58,22 @@ stages:
             buildType: 'current'
             artifactName: 'drop'
             targetPath: '$(Pipeline.Workspace)'
-        - task: FileTransform@1
+        
+        
+        - task: replacetokens@5
           inputs:
-            folderPath: '$(Pipeline.Workspace)/**/*.zip'
-            fileType: 'json'
+            rootDirectory: '$(Pipeline.Workspace)/**/*.zip'
             targetFiles: '**/appsettings.json'
-        
-        
+            encoding: 'auto'
+            tokenPattern: 'default'
+            writeBOM: true
+            actionOnMissing: 'warn'
+            keepToken: false
+            actionOnNoFiles: 'continue'
+            enableTransforms: false
+            enableRecursion: false
+            useLegacyPattern: false
+            enableTelemetry: true
 
         
           
