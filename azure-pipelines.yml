@@ -16,6 +16,7 @@ stages:
     variables:
       - name: buildConfiguration
         value: 'Release'
+      - group: AppSettingsVar
 
     steps:
     - task: DotNetCoreCLI@2
@@ -24,7 +25,27 @@ stages:
         projects: '**/*.csproj'
         feedsToUse: 'select'
     
+    - task: FileTransform@1
+      inputs:
+        folderPath: '$(System.DefaultWorkingDirectory)'
+        fileType: 'json'
+        targetFiles: '**/appsettings.json'
     
+    - task: replacetokens@5
+      inputs:
+        rootDirectory: '$(System.DefaultWorkingDirectory)'
+        targetFiles: '**/appsettings.json'
+        encoding: 'auto'
+        tokenPattern: 'default'
+        writeBOM: true
+        actionOnMissing: 'warn'
+        keepToken: false
+        actionOnNoFiles: 'continue'
+        enableTransforms: false
+        enableRecursion: false
+        useLegacyPattern: false
+        enableTelemetry: true
+
     - task: DotNetCoreCLI@2
       inputs:
         command: 'build'
@@ -50,8 +71,7 @@ stages:
       pool:
         vmImage: windows-latest
       
-      variables:
-        - group: AppSettingsVar
+        
       steps:  
         - task: DownloadPipelineArtifact@2
           inputs:
@@ -59,25 +79,6 @@ stages:
             artifactName: 'drop'
             targetPath: '$(Pipeline.Workspace)'
         
-        - task: FileTransform@1
-          inputs:
-            folderPath: '$(Pipeline.Workspace)/**/*.zip'
-            fileType: 'json'
-            targetFiles: '**/appsettings.json'
-        
-        - task: replacetokens@5
-          inputs:
-            targetFiles: '**/appsettings.json'
-            encoding: 'auto'
-            tokenPattern: 'default'
-            writeBOM: true
-            actionOnMissing: 'warn'
-            keepToken: false
-            actionOnNoFiles: 'continue'
-            enableTransforms: false
-            enableRecursion: false
-            useLegacyPattern: false
-            enableTelemetry: true
           
         - task: AzureRmWebAppDeployment@4
           inputs:
